@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            background-color: #ffffff;
+            overflow: auto;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        form {
+            background: none;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+        }
+
+        input[type="color"], input[type="text"], select {
+            width: 100%;
+            padding: 4px 8px;
+            margin: 8px 0;
+            border: 1px solid currentColor;
+            border-radius: 4px;
+            font-size: 14px;
+            background: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        input[type="color"]:hover, input[type="text"]:hover, select:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        button {
+            padding: 4px 8px;
+            color: inherit;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            border: 1px solid currentColor;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            background: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .download-button {
+            padding: 8px 16px;
+            color: inherit;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            border: 1px solid currentColor;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            background: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .download-button.hidden {
+            display: none;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            padding: 8px 16px;
+            color: inherit;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            border: 1px solid currentColor;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            background: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .file-label:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+
+    </style>
+</head>
+<body>
+<h2>Upload Configuration File</h2>
+<form action="http://localhost:8080/upload" method="post" enctype="multipart/form-data" target="center" onsubmit="handleDeploy()">
+    <input type="file" name="configFile" id="configFile" class="file-input" required>
+    <label for="configFile" class="file-label">Choose File</label>
+    <span id="fileName" style="margin-left: 10px; font-size: 14px; color: #555;">Please choose a conf file</span>
+    
+    <div style="margin-top: 10px;">
+        <label for="layout">Choose Graph Layout</label>
+        <select name="layoutGraph" id="layout">
+            <option value="grid">Grid Layout</option>
+            <option value="breadthfirst">Breadth First Layout</option>
+            <option value="circle">Circle Layout</option>
+            <option value="concentric">Concentric Layout</option>
+            <option value="cose">Cose Layout</option>
+            <option value="random">Random</option>
+        </select>
+    </div>
+
+    <h2>Pick the colors</h2>
+
+    <div>
+        <input type="color" id="agent_color" name="agent_color" value="#2596be" />
+        <label for="agent_color">Agent</label>
+    </div>
+
+    <div>
+        <input type="color" id="topic_color" name="topic_color" value="#7a81e4" />
+        <label for="topic_color">Topic</label>
+    </div>
+
+    
+    <div>
+        <button>Deploy</button>
+
+        <div style="display: inline-flex; align-items: center; margin-left: 20px; vertical-align: middle;">
+            <span style="font-size: 14px; margin-right: 5px;">Text</span>
+            <label class="switch" style="transform: scale(0.6);">
+                <input type="checkbox" id="displayToggle" unchecked>
+                <span class="slider round"></span>
+            </label>
+            <span style="font-size: 14px; margin-left: 5px;">Symbols</span>
+        </div>
+    </div>
+    <input type="hidden" id="displayMode" name="displayMode" value="text">
+</form>
+
+<hr>
+
+<h2>Send Message to Topic</h2>
+<form action="http://localhost:8080/publish" method="get" target="right" style="background: none; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 5px; width: 100%; max-width: 600px;">
+    <label for="topicName">Topic name:</label>
+    <input type="text" name="Topic Name" id="topicName" required style="width: calc(100% - 22px); padding: 8px 16px; margin: 10px 0; border: 1px solid currentColor; border-radius: 4px; font-size: 14px; background: none; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease;"/>
+    <label for="message">Message:</label>
+    <input type="text" name="Message" id="message" required style="width: calc(100% - 22px); padding: 8px 16px; margin: 10px 0; border: 1px solid currentColor; border-radius: 4px; font-size: 14px; background: none; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease;"/>
+    <br/>
+    <button type="submit">Send</button>
+</form>
+
+
+<a href="./temp/graph_gui.html" download class="download-button hidden" id="downloadButton">Download Graph</a>
+
+
+<script>
+    function handleDeploy() {
+        // Show the download button
+        document.getElementById('downloadButton').classList.remove('hidden');
+
+        // Delay to allow the iframe to reload before messaging it
+        setTimeout(() => {
+            parent.frames['center'].postMessage({ action: "deploy" }, "*");
+        }, 500); // Adjust time if needed
+    }
+    document.getElementById('displayToggle').addEventListener('change', function() {
+        const hiddenInput = document.getElementById('displayMode');
+        if (this.checked) {
+            hiddenInput.value = 'symbols';
+        } else {
+            hiddenInput.value = 'text';
+        }
+    });
+
+    document.getElementById('configFile').addEventListener('change', function() {
+        const fileNameSpan = document.getElementById('fileName');
+        if (this.files.length > 0) {
+            fileNameSpan.textContent = this.files[0].name;
+        } else {
+            fileNameSpan.textContent = 'Please choose a conf file';
+        }
+    });
+</script>
+
+
+
+</body>
+</html>

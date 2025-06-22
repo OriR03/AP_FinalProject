@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graph Viewer with iFrame</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Graph Result:</h1>
+
+<iframe id="graphFrame" src="temp.html" title="Graph Content"></iframe>
+
+
+<script>
+  window.addEventListener("message", function(event) {
+    if (event.data && event.data.action === "deploy") {
+      document.getElementById("graphFrame").src = "./temp/graph_gui.html";
+    }
+  });
+  
+  function exportGraph(type) {
+    // Open export URL in new window to trigger download
+    window.open('/export?type=' + type, '_blank');
+  }
+</script>
+
+</body>
+</html>
