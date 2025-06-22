@@ -78,7 +78,21 @@ public class ConfLoader implements Servlet , Observer {
         gc.create();
         Graph g=new Graph();
         g.createFromTopics();//cast the file to a graph object
+        if(g.hasCycles()){
+            boolean deleted = file.delete();//delete temp file
 
+            String body = "<p style='color:red; font-size:50px'>Error - The Chosen Graph Has Cycles</p>";
+            String response =
+                    "HTTP/1.1 400 Bad Request\r\n" +
+                            "Content-Type: text/html\r\n" +
+                            "Content-Length: " + body.getBytes(StandardCharsets.UTF_8).length + "\r\n" +
+                            "\r\n" +
+                            body;
+
+            toClient.write(response.getBytes(StandardCharsets.UTF_8));
+            fos.close();
+            return;
+        }
         HtmlGraphWriter gw = new HtmlGraphWriter();
         gw.addObserver(this);
 
