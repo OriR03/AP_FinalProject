@@ -74,4 +74,5 @@ C↓->D=abccde
 
 D↺->E=edccba
 
+More example graphs are under `/src/config_files`
 
