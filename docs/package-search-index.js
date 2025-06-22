@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"biu_project"},{"l":"biu_project.configs"},{"l":"biu_project.graph"},{"l":"biu_project.server"},{"l":"biu_project.servlets"},{"l":"biu_project.test"},{"l":"biu_project.views"}];updateSearchResults();
