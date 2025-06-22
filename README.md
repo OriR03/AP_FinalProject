@@ -76,3 +76,14 @@ D↺->E=edccba
 
 More example graphs are under `/src/config_files`
 
+
+<video src="https://github.com/user-attachments/assets/9ccf9425-54b3-4fd7-b0bc-46c4521c2f32" width="300" />
+
+
+
+
+
+
+
+
+
